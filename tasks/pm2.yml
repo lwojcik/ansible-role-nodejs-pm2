@@ -1,0 +1,16 @@
+---
+- name: Install pm2
+  npm:
+    name: pm2
+    global: yes
+  become: true
+
+- name: Install pm2-logrotate using PM2
+  command: pm2 install pm2-logrotate
+  become: false
+  changed_when: false
+
+- name: Setup pm2 to start on system boot
+  command: "env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u {{ deploy_user }} --hp /home/{{ deploy_user }}"
+  become: true
+  changed_when: false

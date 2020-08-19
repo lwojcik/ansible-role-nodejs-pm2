@@ -29,3 +29,10 @@
   apt:
     name: "nodejs={{ nodejs_version|regex_replace('x', '') }}*"
     state: present
+
+- name: Set NODE_ENV to production
+  lineinfile:
+    dest: /etc/environment
+    regexp: "^NODE_ENV="
+    line: "NODE_ENV=production"
+    state: present
